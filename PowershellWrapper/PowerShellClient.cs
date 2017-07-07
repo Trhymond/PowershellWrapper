@@ -43,7 +43,7 @@ namespace Powershell
         /// <param name="commands">The commands.</param>
         /// <param name="childCommands">The child commands.</param>
         /// <returns></returns>
-        public CommandResult Execute<T>(List<PowershellCommand> commands, List<PowershellCommand> childCommands = null)
+        public CommandResult<T> Execute<T>(List<PowershellCommand> commands, List<PowershellCommand> childCommands = null)
         {
             try
             {
@@ -77,12 +77,12 @@ namespace Powershell
                         instance.Add(objT);
                     }
                 }
-                return new CommandResult()
-                                   .Success<IList<T>>((List<T>)instance);
+                return new CommandResult<T>()
+                                   .Success<T>((List<T>)instance);
             }
             catch (Exception ex)
             {
-                return new CommandResult()
+                return new CommandResult<T>()
                                    .Fail(ex);
             }                       
         }
@@ -94,7 +94,7 @@ namespace Powershell
         /// <param name="commands">The commands.</param>
         /// <param name="childCommands">The child commands.</param>
         /// <returns></returns>
-        public CommandResult ExecuteRemote<T>(List<PowershellCommand> commands, List<PowershellCommand> childCommands = null)
+        public CommandResult<T> ExecuteRemote<T>(List<PowershellCommand> commands, List<PowershellCommand> childCommands = null)
         {
             Runspace runspace = null;
 
@@ -132,13 +132,13 @@ namespace Powershell
                     }
                 }
 
-                return new CommandResult()
-                                   .Success<IList<T>>((List<T>)instance);
+                return new CommandResult<T>()
+                                   .Success<T>((List<T>)instance);
 
             }
             catch (Exception ex)
             {
-                return new CommandResult()
+                return new CommandResult<T>()
                                    .Fail(ex);
             }
             finally
@@ -156,26 +156,26 @@ namespace Powershell
         /// </summary>
         /// <param name="commands">The commands.</param>
         /// <returns></returns>
-        public CommandResult ExecuteNonQuery(List<PowershellCommand> commands)
+        public CommandResult<string> ExecuteNonQuery(List<PowershellCommand> commands)
         {
             try
             {
                 var psCommands = commands.ToDictionary(x => x.CommandText, y => y.CommandParameters.ToDictionary(a => a.Name, b => b.Value));
                 var results = psConnector.ExecuteCommand(psCommands);
 
-                var stringBuilder = new StringBuilder();
+                var resultBuilder = new List<string>();
                 foreach (PSObject obj in results)
                 {
-                    stringBuilder.AppendLine(obj.ToString());
+                    resultBuilder.Add(obj.ToString());
                 }
 
-                return new CommandResult()
-                                   .Success<string>(stringBuilder.ToString());
+                return new CommandResult<string>()
+                                   .Success<string>(resultBuilder);
             }
             catch (Exception ex)
             {
-                return new CommandResult()
-                                 .Fail(ex);
+                return new CommandResult<string>()
+                                   .Fail(ex);
             }
         }
 
