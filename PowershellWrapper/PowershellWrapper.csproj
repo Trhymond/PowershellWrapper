@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{365C3ACA-043A-4A3A-902B-E0E53D2F782D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Powershell</RootNamespace>
+    <AssemblyName>PowershellClient</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <TargetFramework>net461</TargetFramework>
+    <PackageId>PowerShellClient.RhymondInc</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Tomy Rhymond</Authors>
+    <Description>Run Powershell commands and return data. Support for AD, Exchange, SharePoint, Script File Execution </Description>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First Release</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Rhymond, Inc. All rights reserved</Copyright>
+    <PackageTags>Powershell Exchange SharePoint ActiveDirectory</PackageTags> 	
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+    <PackageLicenseUrl>file://Content/license.txt</PackageLicenseUrl>
+    <PackageIconUrl>file://Content/nugetIcon.png</PackageIconUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Management.Automation.dll.10.0.10586.0\lib\net40\System.Management.Automation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connectors\Connector.cs" />
+    <Compile Include="Connectors\ActiveDirectoryConnector.cs" />
+    <Compile Include="Connectors\ExchangeConnector.cs" />
+    <Compile Include="Connectors\FileConnector.cs" />
+    <Compile Include="Connectors\SharePointConnector.cs" />
+    <Compile Include="Connectors\WMIConnector.cs" />
+    <Compile Include="Connectors\MsOnlineConnector.cs" />
+    <Compile Include="Extensions\CommandResultExtension.cs" />
+    <Compile Include="Extensions\ConnectorExtension.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Extensions\TypeExtension.cs" />
+    <Compile Include="IClient.cs" />
+    <Compile Include="Model\CommandResult.cs" />
+    <Compile Include="Model\ConnectionType.cs" />
+    <Compile Include="Model\PowershellCommand.cs" />
+    <Compile Include="Model\PowershellCommandParameter.cs" />
+    <Compile Include="Model\StatusCode.cs" />
+    <Compile Include="PowershellException.cs" />
+    <Compile Include="PowerShellClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\license.txt" />
+    <Content Include="Content\nugetIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="4.0.0" />
+    <PackageReference Include="System.Management.Automation.dll">
+      <Version>10.0.10586</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
