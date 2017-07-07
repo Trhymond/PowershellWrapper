@@ -1,13 +1,14 @@
 ﻿using Powershell.Model;
 using System;
+using System.Collections.Generic;
 
 namespace Powershell.Extensions
 {
     internal static class CommandResultExtension
     {
-        internal static CommandResult Success<T>(this CommandResult result, T content)
+        internal static CommandResult<T> Success<T>(this CommandResult<T> result, List<T> content)
         {
-            return new CommandResult
+            return new CommandResult<T>
             {
                 Content = content,
                 Status = StatusCode.SUCCESS,
@@ -15,9 +16,9 @@ namespace Powershell.Extensions
             };
         }
 
-        internal static CommandResult Fail(this CommandResult result, Exception ex)
+        internal static CommandResult<T> Fail<T>(this CommandResult<T> result, Exception ex)
         {
-            result = new CommandResult
+            result = new CommandResult<T>
             {
                 Content = null,
                 Status = StatusCode.FAIL,
