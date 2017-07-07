@@ -1,8 +1,10 @@
-﻿namespace Powershell.Model
+﻿using System.Collections.Generic;
+
+namespace Powershell.Model
 {
-    public class CommandResult 
+    public class CommandResult<T>
     {
-        public object Content { get; set; }
+        public List<T> Content { get; set; }
 
         public StatusCode Status { get; set; }
 
