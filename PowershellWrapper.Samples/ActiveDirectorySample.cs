@@ -17,26 +17,46 @@ namespace PowershellWrapper.Samples
             var userName = "<AD User Name>";
             var password = "<AD Password>";
 
-            var connector = new ActiveDirectoryConnector(userName, password);
-
-            using (var client = PowerShellClient.Create(connector))
+            try
             {
-                var geUserCommand = new PowershellCommand
+                // Create a connector
+                var connector = new ActiveDirectoryConnector(userName, password);
+
+                // Initialze Powershell Client
+                using (var client = PowerShellClient.Create(connector))
                 {
-                    Name = "GetUser",
-                    CommandText = "Get-User",
-                    CommandParameters = new List<PowershellCommandParameter> {
+                    // Create Command
+                    var geUserCommand = new PowershellCommand
+                    {
+                        Name = "GetUser",
+                        CommandText = "Get-User",
+                        CommandParameters = new List<PowershellCommandParameter> {
                                     new PowershellCommandParameter { Name = "ResultSize", Value = "unlimited" }, //"100"
-                                    new PowershellCommandParameter { Name = "OrganizationalUnit", Value = "Marketing" } 
+                                    new PowershellCommandParameter { Name = "OrganizationalUnit", Value = "Marketing" }
                             }
-                };
+                    };
 
-                var result = client.Execute<ActiveDirectory>(new List<PowershellCommand> { geUserCommand });
+                    // Execute Command 
+                    var result = client.Execute<ActiveDirectory>(new List<PowershellCommand> { geUserCommand });
 
-                if(result.Status == StatusCode.SUCCESS)
-                {
-                    var adUsers = (List<ActiveDirectory>)result.Content;
+                    // Success, get the data
+                    if (result.Status == StatusCode.SUCCESS)
+                    {
+                        var adUsers = result.Content;
+
+                        Console.WriteLine($"{adUsers.Count} users found");
+                    }
+                    else // Failes show the errors
+                    {
+                        Console.WriteLine(result.Status);
+                        Console.WriteLine(result.StatusText);
+                        Console.WriteLine(result.Errors);                        
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }
