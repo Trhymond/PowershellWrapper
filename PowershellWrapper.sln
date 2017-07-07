@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowershellWrapper", "PowershellWrapper\PowershellWrapper.csproj", "{365C3ACA-043A-4A3A-902B-E0E53D2F782D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowershellWrapper", "PowershellWrapper\PowershellWrapper.csproj", "{365C3ACA-043A-4A3A-902B-E0E53D2F782D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowershellWrapper.Tests", "PowershellWrapper.Tests\PowershellWrapper.Tests.csproj", "{93F6A068-0087-4FAA-846F-D4A02DFB98B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowershellWrapper.Samples", "PowershellWrapper.Samples\PowershellWrapper.Samples.csproj", "{904B089D-70D6-4058-8B11-0896D1D5987B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{93F6A068-0087-4FAA-846F-D4A02DFB98B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93F6A068-0087-4FAA-846F-D4A02DFB98B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93F6A068-0087-4FAA-846F-D4A02DFB98B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{904B089D-70D6-4058-8B11-0896D1D5987B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{904B089D-70D6-4058-8B11-0896D1D5987B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{904B089D-70D6-4058-8B11-0896D1D5987B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{904B089D-70D6-4058-8B11-0896D1D5987B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
